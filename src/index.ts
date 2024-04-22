@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from "cors"
 import "dotenv/config"
 import mongoose from "mongoose"
@@ -19,7 +19,9 @@ app.use(cors({
     credentials: true
 }))
 
-
+app.get("/health", (req: Request, res: Response) => {
+    res.send({ message: "Health OK!" });
+});
 
 app.use("/api/users/", userRoutes)
 app.use("/api/auth", authRoutes)
