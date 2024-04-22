@@ -4,7 +4,9 @@
   "description": "mern booking app backend",
   "main": "./src/index.ts",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "build": "npm install && tsc",
+    "start": "node ./dist/index.js"
   },
   "author": "Giorgi Patsia",
   "license": "ISC",
