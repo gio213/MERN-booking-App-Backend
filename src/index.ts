@@ -36,7 +36,7 @@ app.get("/health", (req: Request, res: Response) => {
 
 app.use("/api/users/", userRoutes)
 app.use("/api/auth", authRoutes)
-app.use("api/my-hotels", myHotelRoutes)
+app.use("/api/my-hotels", myHotelRoutes)
 
 
 app.listen(3000, () => {

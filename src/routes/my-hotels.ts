@@ -11,9 +11,8 @@ const storage = multer.memoryStorage()
 const upload = multer({
     storage: storage,
     limits: {
-        fieldSize: 5 * 1024 * 2024 // 5mb
+        fieldSize: 5 * 1024 * 1024 // 5mb
     },
-    dest: "hotels_images"
 })
 
 // api/my-hotels
@@ -34,7 +33,7 @@ router.post("/", verifyToken, [
         const uploadPromises = imageFiles.map(async (image) => {
             const b64 = Buffer.from(image.buffer).toString("base64")
             let dataURI = "data:" + image.mimetype + ";base64," + b64
-            const res = await cloudinary.v2.uploader.upload(dataURI)
+            const res = await cloudinary.v2.uploader.upload(dataURI, { folder: "hotels_images" })
 
             return res.url;
         })
