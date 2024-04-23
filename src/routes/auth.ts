@@ -36,7 +36,7 @@ router.post("/login", [
         })
 
         res.cookie("auth_token", token, {
-            secure: process.env.NODE_ENV === "production", maxAge: 86400000
+            httpOnly: true, secure: process.env.NODE_ENV === "production", maxAge: 86400000, sameSite: "none"
         })
 
         res.status(200).json({ userId: user._id })
