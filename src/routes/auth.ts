@@ -7,6 +7,7 @@ import { verifyToken } from "../middleware/auth"
 
 const router = express.Router()
 
+const isProduction = process.env.NODE_ENV === "production";
 
 router.post("/login", [
     check("email", "Email is required").isEmail(),
@@ -35,8 +36,10 @@ router.post("/login", [
 
         })
 
+
+
         res.cookie("auth_token", token, {
-            httpOnly: true, secure: process.env.NODE_ENV === "production", maxAge: 86400000, sameSite: "none"
+            httpOnly: true, secure: isProduction, maxAge: 86400000, sameSite: isProduction ? "none" : "lax"
         })
 
         res.status(200).json({ userId: user._id })
@@ -55,9 +58,9 @@ router.get("/validate-token", verifyToken, (req: Request, res: Response) => {
 router.post("/logout", (req: Request, res: Response) => {
     res.cookie("auth_token", "", {
         expires: new Date(0),
-        secure: process.env.NODE_ENV === "production",
+        secure: isProduction,
         httpOnly: true,
-        sameSite: "none"
+        sameSite: isProduction ? "none" : "lax"
     })
     res.send()
 })
