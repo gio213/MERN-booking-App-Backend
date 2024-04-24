@@ -7,7 +7,9 @@ import authRoutes from "./routes/auth"
 import cookieParser from "cookie-parser"
 import { v2 as cloudinary } from "cloudinary"
 import myHotelRoutes from "./routes/my-hotels"
-import getMyHotel from "./routes/my-hotels"
+
+
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -38,7 +40,7 @@ app.get("/health", (req: Request, res: Response) => {
 app.use("/api/users/", userRoutes)
 app.use("/api/auth", authRoutes)
 app.use("/api/my-hotels", myHotelRoutes)
-app.use("/api/get-hotels", getMyHotel)
+
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000")
