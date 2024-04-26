@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser"
 import { v2 as cloudinary } from "cloudinary"
 import myHotelRoutes from "./routes/my-hotels"
 import hotelRoutes from "./routes/hotel"
+import path from 'path';
 
 
 cloudinary.config({
@@ -25,6 +26,13 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string).then(() => {
 
 
 const app = express()
+
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'dist', '/frontend/dist/index.html'));
+});
+
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
