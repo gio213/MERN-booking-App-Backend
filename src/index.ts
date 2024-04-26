@@ -7,8 +7,7 @@ import authRoutes from "./routes/auth"
 import cookieParser from "cookie-parser"
 import { v2 as cloudinary } from "cloudinary"
 import myHotelRoutes from "./routes/my-hotels"
-import path from 'path';
-
+import hotelRoutes from "./routes/hotel"
 
 
 cloudinary.config({
@@ -41,6 +40,7 @@ app.get("/health", (req: Request, res: Response) => {
 app.use("/api/users/", userRoutes)
 app.use("/api/auth", authRoutes)
 app.use("/api/my-hotels", myHotelRoutes)
+app.use("/api/hotels", hotelRoutes)
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000")

@@ -18,6 +18,16 @@ export type HotelType = {
 }
 
 
+export type HotelSearchResponse = {
+    data: HotelType[];
+    pagination: {
+        total: number
+        page: number
+        pages: number
+    }
+}
+
+
 const holtelSchema = new mongoose.Schema<HotelType>({
 
     userId: { type: String, required: true },
