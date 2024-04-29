@@ -1,6 +1,8 @@
 import express, { Request, Response } from "express";
 import Hotel, { HotelSearchResponse } from "../models/hotel";
 import { param, validationResult } from "express-validator";
+import { verifyToken } from "../middleware/auth";
+import User from "../models/user";
 
 const router = express.Router()
 
@@ -120,6 +122,8 @@ router.get("/:id", [
         res.status(500).json({ message: "Error fetching hotel" })
     }
 })
+
+
 
 
 export default router
