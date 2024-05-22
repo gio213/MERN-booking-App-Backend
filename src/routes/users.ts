@@ -70,4 +70,39 @@ router.get("/me", verifyToken, async (req: Request, res: Response) => {
 
 })
 
+
+router.put("/password-reset", [
+    check("email", "Email  is required").isEmail(),
+    check("password", "Password  width 6 or more characters required").isLength({ min: 6 }),
+
+], async (req: Request, res: Response) => {
+
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ message: errors.array() })
+    }
+
+    try {
+        let user = await User.findOne({
+            email: req.body.email,
+
+        })
+
+        if (!user) {
+            return res.status(400).json({ message: "User not found" })
+        }
+        user.password = req.body.password
+        await user.save()
+
+        return res.status(200).send({ message: "Password reset ok" })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ message: "Something went wrong" })
+    }
+})
+
+
+
+
 export default router
